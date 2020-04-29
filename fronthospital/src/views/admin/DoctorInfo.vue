@@ -201,27 +201,13 @@
             },
             get_list: async function () {
                 let self = this;
-                if(this.department_name===''){
-                    this.department_name=undefined
+                let params ={
+                    departmentName:this.department_name,
+                    doctorName: this.doctor_name
                 }
-                if(this.doctor_name===''){
-                    this.doctor_name=undefined
-                }
-                this.params={
-                    department_name:this.department_name,
-                    doctor_name: this.doctor_name
-                }
-                departmentName = "1"
-                doctorName = "1"
-                if (!isUndefined(this.params.department_name)){
-                    departmentName = this.params.department_name
-                }
-                if(!isUndefined(this.params.doctor_name)){
-                    doctorName = this.params.doctor_name
-                }
-                let requestUrl = "/admin/getDoctorInfo/department/" + self.params.department_name + "/doctor/" + this.params.doctor_name
-                let {data} = await this.$http.get(requestUrl)
-                console.log(data)
+                let {data} = await this.$http.get("/admin/getDoctorInfo",{
+                  'params': params
+                })
                 self.list = data
                 console.log(self.list)
                 // self.total = data.total
